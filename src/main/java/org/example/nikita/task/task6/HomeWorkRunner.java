@@ -26,7 +26,8 @@ public class HomeWorkRunner {
 
         user2 = new User(name2, age2);
 
-        System.out.println(Math.min(user1.getAge(), user2.getAge()));
+        User resUser = user1.getAge()  < user2.getAge()?user1:user2;
+        System.out.println(resUser.toString());
 
 
     }

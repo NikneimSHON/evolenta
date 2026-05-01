@@ -16,7 +16,7 @@ public class User {
     }
 
     public String toString(){
-        return name + ",возраст " + age + "лет";
+        return name + ",возраст " + age + " лет";
     }
 
     public String getName() {
