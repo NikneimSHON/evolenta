@@ -2,7 +2,7 @@ package org.example.nikita.task.task12.operation.impl;
 
 import org.example.nikita.task.task12.operation.Operation;
 
-public class Division implements Operation {
+public class Divider implements Operation {
 
 
     @Override
