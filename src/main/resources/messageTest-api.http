@@ -1,0 +1,22 @@
+POST http://localhost:8080/message
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "test4",
+  "text": "test4",
+  "time": "2003-04-04T13:13:13"
+}
+
+###
+GET http://localhost:8080/message
+Accept: application/json
+
+###
+
+GET http://localhost:8080/message/4
+Accept: application/json
+
+###
+DELETE http://localhost:8080/message/4
+Accept: application/json

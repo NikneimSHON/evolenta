@@ -1,0 +1,29 @@
+###
+POST http://localhost:8080/person
+Content-Type: application/json
+
+{ "id":4,
+  "firstname":"Ivanov",
+  "surname":"Ivan",
+  "lastname":"Ivanovich",
+  "birthday":"1999-06-07"
+}
+
+###
+GET http://localhost:8080/person/4
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/person/4
+Content-Type: application/json
+
+{ "id":4,
+"firstname":"Ivanov",
+"surname":"Ivan",
+"lastname":"Ivanovich",
+"birthday":"1999-06-07"
+}
+
+###
+DELETE http://localhost:8080/person/4
+Content-Type: application/json
