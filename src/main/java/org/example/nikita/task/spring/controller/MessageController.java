@@ -1,44 +1,51 @@
 package org.example.nikita.task.spring.controller;
 
 import org.example.nikita.task.spring.entity.Message;
-import org.example.nikita.task.spring.repository.MessageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.nikita.task.spring.service.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/message")
 public class MessageController {
 
-    @Autowired
-    private MessageRepository repository;
+    private final MessageService messageService;
 
-    @GetMapping("/message")
-    public Iterable<Message> getMessages() {
-        return repository.findAll();
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
     }
 
-    @GetMapping("/message/{id}")
-    public Optional<Message> findMessageById(@PathVariable int id) {
-        return repository.findById(id);
+    @GetMapping
+    public ResponseEntity<Iterable<Message>> getAllMessages() {
+        return ResponseEntity.ok(messageService.getAllMessages());
     }
 
-    @PostMapping("/message")
-    public Message addMessage(@RequestBody Message message) {
-        repository.save(message);
-        return message;
+    @GetMapping("/{id}")
+    public ResponseEntity<Message> getMessageById(@PathVariable Integer id) {
+        return messageService.getMessageById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/message/{id}")
-    public ResponseEntity<Message> updateMessage(@PathVariable int id, @RequestBody Message message) {
-        message.setId(id);
-        HttpStatus status = repository.existsById(id) ? HttpStatus.OK : HttpStatus.CREATED;
-        return new ResponseEntity<>(repository.save(message), status);
+    @PostMapping
+    public ResponseEntity<Message> createMessage(@RequestBody Message message) {
+        Message created = messageService.createMessage(message);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @DeleteMapping("/message/{id}")
-    public void deleteMessage(@PathVariable int id) {
-        repository.deleteById(id);
+    @PutMapping("/{id}")
+    public ResponseEntity<Message> updateMessage(@PathVariable Integer id, @RequestBody Message message) {
+        return messageService.updateMessage(id, message)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMessage(@PathVariable Integer id) {
+        if (messageService.deleteMessage(id)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
