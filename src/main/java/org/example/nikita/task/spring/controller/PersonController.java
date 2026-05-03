@@ -78,14 +78,4 @@ public class PersonController {
                 .orElse(ResponseEntity.badRequest().build());
     }
 
-    @DeleteMapping("/{p_id}/message/{m_id}")
-    public ResponseEntity<Void> deleteMessageFromPerson(
-            @PathVariable("p_id") Integer personId,
-            @PathVariable("m_id") Integer messageId) {
-        if (personService.deleteMessageFromPerson(personId, messageId)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
-
 }
