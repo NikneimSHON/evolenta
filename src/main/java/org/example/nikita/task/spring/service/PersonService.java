@@ -52,11 +52,6 @@ public class PersonService {
         return true;
     }
 
-    @Transactional(readOnly = true)
-    public Optional<List<Message>> getPersonMessages(Integer personId) {
-        Optional<Person> person = personRepository.findById(personId);
-        return person.map(p -> p.getMessages());
-    }
 
     public Optional<Message> getPersonMessageById(Integer personId, Integer messageId) {
         Optional<Person> person = personRepository.findById(personId);

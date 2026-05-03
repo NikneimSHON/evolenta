@@ -53,12 +53,6 @@ public class PersonController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{p_id}/message")
-    public ResponseEntity<List<Message>> getPersonMessages(@PathVariable("p_id") Integer personId) {
-        return personService.getPersonMessages(personId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
 
     @GetMapping("/{p_id}/message/{m_id}")
     public ResponseEntity<Message> getPersonMessageById(
