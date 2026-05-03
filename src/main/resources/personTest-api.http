@@ -3,7 +3,7 @@ POST http://localhost:8080/person
 Content-Type: application/json
 
 {
-  "firstname":"Ivanovшыр",
+  "firstname":"Ivanov",
   "surname":"Ivan",
   "lastname":"Ivanovich",
   "birthday":"1999-06-07"
@@ -14,11 +14,11 @@ GET http://localhost:8080/person
 Content-Type: application/json
 
 ###
-PUT http://localhost:8080/person/4
+PUT http://localhost:8080/person/1
 Content-Type: application/json
 
-{ "id":3,
-"firstname":"Ivanov",
+{
+"firstname":"Ivanovsssssssss",
 "surname":"Ivan",
 "lastname":"Ivanovich",
 "birthday":"1999-06-07"

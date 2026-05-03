@@ -1,14 +1,14 @@
 package org.example.nikita.task.spring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "persons")
 public class Person {
 
     @Id
@@ -19,31 +19,24 @@ public class Person {
     private String lastname;
     private LocalDate birthday;
 
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Message> messages = new ArrayList<>();
+
     public Person() {
 
     }
 
-    public Person(int id, String firstname, String surname, String lastname, LocalDate birthday) {
-        this.id = id;
+    public Person(String firstname, String surname, LocalDate birthday) {
         this.firstname = firstname;
         this.surname = surname;
-        this.lastname = lastname;
         this.birthday = birthday;
     }
 
-    public Person(String firstname, String surname, String lastname, LocalDate birthday) {
-        this.firstname = firstname;
-        this.surname = surname;
-        this.lastname = lastname;
-        this.birthday = birthday;
-    }
-
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -79,15 +72,21 @@ public class Person {
         this.birthday = birthday;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id == person.id && Objects.equals(firstname, person.firstname) && Objects.equals(surname, person.surname) && Objects.equals(lastname, person.lastname) && Objects.equals(birthday, person.birthday);
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstname, surname, lastname, birthday);
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public void addMessage(Message message) {
+        messages.add(message);
+        message.setPerson(this);
+    }
+
+    public void removeMessage(Message message) {
+        messages.remove(message);
+        message.setPerson(null);
     }
 }
