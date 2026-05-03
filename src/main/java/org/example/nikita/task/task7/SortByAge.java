@@ -1,5 +1,7 @@
 package org.example.nikita.task.task7;
 
+import org.example.nikita.task.task6.User;
+
 import java.util.Comparator;
 
 public class SortByAge implements Comparator<User> {

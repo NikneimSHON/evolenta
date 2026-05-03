@@ -1,15 +1,26 @@
 package org.example.nikita.task.spring.entity;
 
-import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
+@Entity
 public class Person {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String firstname;
     private String surname;
     private String lastname;
     private LocalDate birthday;
 
     public Person() {
+
     }
 
     public Person(int id, String firstname, String surname, String lastname, LocalDate birthday) {
@@ -19,6 +30,14 @@ public class Person {
         this.lastname = lastname;
         this.birthday = birthday;
     }
+
+    public Person(String firstname, String surname, String lastname, LocalDate birthday) {
+        this.firstname = firstname;
+        this.surname = surname;
+        this.lastname = lastname;
+        this.birthday = birthday;
+    }
+
 
     public int getId() {
         return id;
@@ -58,5 +77,17 @@ public class Person {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id == person.id && Objects.equals(firstname, person.firstname) && Objects.equals(surname, person.surname) && Objects.equals(lastname, person.lastname) && Objects.equals(birthday, person.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstname, surname, lastname, birthday);
     }
 }

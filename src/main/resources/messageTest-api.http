@@ -2,8 +2,8 @@ POST http://localhost:8080/message
 Content-Type: application/json
 
 {
-  "id": 1,
-  "title": "test4",
+  "id" : 3,
+  "title": "test111111",
   "text": "test4",
   "time": "2003-04-04T13:13:13"
 }
